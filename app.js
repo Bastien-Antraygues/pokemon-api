@@ -3,6 +3,7 @@ import session from "express-session";
 
 import authRoutes from "./src/routes/auth.routes.js"
 import typesRoutes from "./src/routes/types/types.routes.js"
+import pokemonRoutes from "./src/routes/pokemons/pokemons.routes.js"
 import passport from "passport";
 
 const app = express();
@@ -74,6 +75,7 @@ app.post("/logout", (req, res) => {
 });
 app.use("/auth",authRoutes)
 app.use("/types",typesRoutes)
+app.use("/pokemon",pokemonRoutes)
 
 
 export default app;
