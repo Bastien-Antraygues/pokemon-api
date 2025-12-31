@@ -23,4 +23,4 @@ const abilitySchema = new mongoose.Schema({
         name:String
     }]
 })
-export default mongoose.Model("Ability",abilitySchema)
+export default mongoose.model("Ability",abilitySchema)
