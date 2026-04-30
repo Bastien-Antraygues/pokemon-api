@@ -12,7 +12,7 @@ const PokemonSchema = new mongoose.Schema({
         }
     ],
     sprites:{
-        front_default:{type:String,required:true},
+        front_default:{type:String,required:false},
         back_default:String
     },
     stats:[
