@@ -6,34 +6,52 @@ import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
 
-  email: { type: String, unique: true, required: true },
+  email: { 
+    type: String, 
+    unique: true, 
+    required: true, 
+    lowercase: true,
+    match: [/^\S+@\S+\.\S+$/, 'Format d\'email invalide'] 
+  },
 
-  password: { type: String},
+  password: { type: String, required: true },
 
-  name: String,
+  firstname: {
+    type: String,
+    required: [true, 'Le prenom est requis'],
+    trim: true,
+    minlength: [2, 'Le prenom doit contenir au moins 2 caractères'],
+    maxlength: [50, 'Le prenom ne peut pas dépasser 50 caractères']
+  },
+  lastname:{
+    type: String,
+    required: [true, 'Le nom est requis'],
+    trim: true,
+    minlength: [2, 'Le nom doit contenir au moins 2 caractères'],
+    maxlength: [50, 'Le nom ne peut pas dépasser 50 caractères']
+  },
 
-  googleId: { type: String, unique: true, sparse: true }, // utile si un user log un jour via Google
-
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  },
+  refreshToken: {type: String,unique: true},
   createdAt: { type: Date, default: Date.now }
 
 });
 // Méthode pour vérifier un mot de passe
-userSchema.methods.checkPassword = function (password) {
+userSchema.methods.checkPassword = async function (password) {
 
   return bcrypt.compare(password, this.password);
 
 };
-
-export default mongoose.model("User", userSchema);
-
-/*
-const UserSchema = new mongoose.Schema({
-    username: { type:String, required:true },
-    password: {type:String, required:true}
-})
-
-const transform = (_doc, ret) => {
-    delete: _id
+userSchema.methods.fullName = function () {
+  return this.firstname + ' ' + this.lastname;
 }
-
-export const User = mongoose.model("User", UserSchema)*/
+userSchema.methods.toJSON = function () {
+  const obj = this.toObject();  
+  delete obj.password; // on supprime le mot de passe de l'objet retourné
+  return obj;
+};
+export default mongoose.model("User", userSchema);
