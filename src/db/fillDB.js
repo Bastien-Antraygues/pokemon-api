@@ -16,7 +16,8 @@ export async function fillDB(){
             for(const pokeA of pokeAbility.results){
                 const pokeability = await fetch(process.env.POKE_API_URL+"ability/"+pokeA.name)
                 const resA = await pokeability.json()
-                await abilitiesModels.create(resA)
+                await abilitiesModels.create(resA).finally(()=> console.log("Ability "+pokeA.name+" ajoutée"))
+                
             }
             console.log("Fin d'ajout des Abilities")
             console.log("Ajotu des Types en cours")
@@ -25,7 +26,7 @@ export async function fillDB(){
 
             // Type creation à partir de pokeapi
             for (const objet of data.results) {
-                await typesModels.create({name:objet.name})
+                await typesModels.create({name:objet.name}).finally(()=> console.log("Type "+objet.name+" ajouté"))
                 
             }
             console.log("Fin de creation des Types")
@@ -118,7 +119,7 @@ export async function fillDB(){
                 stats:stats,
                 order:pokemon.order
             } 
-            await pokemonModels.create(newPoke)
+            await pokemonModels.create(newPoke).finally(()=> console.log("Pokemon "+pokemon.name+" ajouté"))    
             
            }
            console.log("Fin d'ajout des pokemons")
