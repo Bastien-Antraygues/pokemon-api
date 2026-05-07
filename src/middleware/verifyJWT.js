@@ -12,8 +12,5 @@ export default function verifyJWT(req, res, next) {
     req.user = decoded.user;
     next();
   });
- 
-
-  res.status(401).json({ error: "Accès refusé : token invalide" });
 
 };
