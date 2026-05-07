@@ -112,4 +112,15 @@ const handleRefreshToken = async (req, res) => {
     }
 }
 
-export { handleLogin, handleLogout, handleSignup, handleRefreshToken };
+const getMe = async (req, res) => {
+    try {
+        const userid = req.user.id;
+        const user = await User.findById(userid);
+        if (!user) return res.sendStatut(404);
+        return res.json({ user: user.toJSON() });
+    }  catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+}
+
+export { handleLogin, handleLogout, handleSignup, handleRefreshToken, getMe };
