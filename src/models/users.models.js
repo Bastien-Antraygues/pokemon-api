@@ -52,6 +52,7 @@ userSchema.methods.fullName = function () {
 userSchema.methods.toJSON = function () {
   const obj = this.toObject();  
   delete obj.password; // on supprime le mot de passe de l'objet retourné
+  delete obj.refreshToken; // on supprime le refreshToken de l'objet retourné
   return obj;
 };
 export default mongoose.model("User", userSchema);
