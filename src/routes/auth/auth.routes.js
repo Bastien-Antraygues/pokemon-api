@@ -6,7 +6,7 @@ import verifyJWT from "../../middleware/verifyJWT.js";
 const router = express.Router();
 
 router.post("/login", handleLogin);
-router.get("/logout", handleLogout);
+router.post("/logout", handleLogout);
 router.post("/signup", handleSignup);
 router.get("/refreshToken", handleRefreshToken);
 router.get("/me", verifyJWT ,getMe);
