@@ -1,6 +1,6 @@
 export function pokemonDto(pokemon){
     return {
-        id:pokemon.id,
+        id:pokemon._id,
         name: pokemon.name,
         order: pokemon.order,
         sprites: pokemon.sprites,
