@@ -5,6 +5,7 @@ import authRoutes from "./src/routes/auth/auth.routes.js"
 import typesRoutes from "./src/routes/types/types.routes.js"
 import pokemonRoutes from "./src/routes/pokemons/pokemons.routes.js"
 import privatesRoutes from "./src/routes/privates/privates.routes.js"
+import favoritesRoutes from "./src/routes/favorites/favorites.routes.js"
 import passport from "passport";
 import verifyJWT from "./src/middleware/verifyJWT.js";
 import cookieParser from "cookie-parser";
@@ -43,6 +44,7 @@ app.use("/types",typesRoutes);
 app.use("/pokemon",pokemonRoutes);
 app.use(verifyJWT);
 app.use("/",privatesRoutes);
+app.use("/favorites", favoritesRoutes)
 
 
 export default app;
