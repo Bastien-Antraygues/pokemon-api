@@ -1,3 +1,4 @@
+import { favoriteDto } from "../../dto/favorites.dto.js";
 import Favorites from "../../models/favorites.models.js";
 
 export default async (req,res) => {
@@ -19,5 +20,5 @@ export default async (req,res) => {
         ]
     })
     if(!favorites) return res.status(404).json({ error: "No favorites found for this user" });
-    return res.json({ favorites });
+    return res.json(favoriteDto(favorites));
 }
